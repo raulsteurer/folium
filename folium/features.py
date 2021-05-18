@@ -1404,15 +1404,16 @@ class LatLngPopupClickable(MacroElement):
 
                     {{this.get_name()}}
                         .setLatLng(e.latlng)
-                        // .setContent( "<br /><a href="+data+"> click </a>")
-                        .setContent("Latitude: " + e.latlng.lat.toFixed(4) +
+                        .setContent("Latitude: " + e.latlng.lat.toFixed(4) +   
                             <br>Longitude: " + e.latlng.lng.toFixed(4))
                         .openOn({{this._parent.get_name()}})
                     }
                 {{this._parent.get_name()}}.on('click', latLngPop);
 
             {% endmacro %}
-            """)  # noqa
+            """)  # noqa 
+
+    # // .setContent( "<br /><a href="+data+"> click </a>")
 
     def __init__(self):
         super(LatLngPopupClickable, self).__init__()
