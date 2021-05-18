@@ -1387,16 +1387,26 @@ class LatLngPopupClickable(MacroElement):
     """
     When one clicks on a Map that contains a LatLngPopupClickable,
     a popup is shown that displays the latitude and longitude of the pointer.
+    See: https://gis.stackexchange.com/questions/313382/click-event-on-maps-with-folium-and-information-retrieval
+        document.getElementById("latitude").value = e.latlng.lat.toFixed(4);
+        parent.document.getElementById("longitude").value = e.latlng.lng.toFixed(4);
+
 
     """
     _template = Template(u"""
             {% macro script(this, kwargs) %}
                 var {{this.get_name()}} = L.popup();
                 function latLngPop(e) {
-                data = e.latlng.lat.toFixed(4) + "," + e.latlng.lng.toFixed(4);
+                        data = e.latlng.lat.toFixed(4) + "," + e.latlng.lng.toFixed(4);
+
+                        parent.document.getElementById("longitude").value = e.latlng.lng.toFixed(5);
+                        parent.document.getElementById("latitude").value = e.latlng.lat.toFixed(5);
+
                     {{this.get_name()}}
                         .setLatLng(e.latlng)
-                        .setContent( "<br /><a href="+data+"> click </a>")
+                        // .setContent( "<br /><a href="+data+"> click </a>")
+                        .setContent("Latitude: " + e.latlng.lat.toFixed(4) +
+                            <br>Longitude: " + e.latlng.lng.toFixed(4))
                         .openOn({{this._parent.get_name()}})
                     }
                 {{this._parent.get_name()}}.on('click', latLngPop);
