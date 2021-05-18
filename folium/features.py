@@ -1398,14 +1398,13 @@ class LatLngPopupClickable(MacroElement):
                 var {{this.get_name()}} = L.popup();
                 function latLngPop(e) {
                         data = e.latlng.lat.toFixed(4) + "," + e.latlng.lng.toFixed(4);
-
-                        parent.document.getElementById("longitude").value = e.latlng.lng.toFixed(5);
-                        parent.document.getElementById("latitude").value = e.latlng.lat.toFixed(5);
+                        
+                        parent.document.getElementById("map-longitude").innerHTML = e.latlng.lng.toFixed(5);
+                        parent.document.getElementById("map-latitude").innerHTML = e.latlng.lat.toFixed(5);
 
                     {{this.get_name()}}
                         .setLatLng(e.latlng)
-                        .setContent("Latitude: " + e.latlng.lat.toFixed(4) +   
-                            <br>Longitude: " + e.latlng.lng.toFixed(4))
+                        .setContent( "Markierter Punkt")
                         .openOn({{this._parent.get_name()}})
                     }
                 {{this._parent.get_name()}}.on('click', latLngPop);
@@ -1418,7 +1417,6 @@ class LatLngPopupClickable(MacroElement):
     def __init__(self):
         super(LatLngPopupClickable, self).__init__()
         self._name = 'LatLngPopupClickable'
-
 
 
 class ClickForMarker(MacroElement):
